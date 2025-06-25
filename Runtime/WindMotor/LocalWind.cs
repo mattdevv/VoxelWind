@@ -86,7 +86,7 @@ namespace VoxelWind
                 case LocalWindType.Directional:
                     Handles.color = Color.cyan;
                     Handles.DrawWireDisc(transform.position, transform.forward, Radius);
-                    Handles.DrawWireDisc(transform.position + Length * Radius * transform.forward, transform.forward, Radius);
+                    Handles.DrawWireDisc(transform.position + Length * transform.forward, transform.forward, Radius);
                     break;
                 case LocalWindType.Omni:
                 case LocalWindType.Vortex:
