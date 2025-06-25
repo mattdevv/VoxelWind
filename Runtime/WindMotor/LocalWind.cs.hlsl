@@ -13,8 +13,9 @@ struct LocalWindData
     bool IsOverWrite;
     float4 Position;
     float4 Direction;
-    float Speed;
+    float Length;
     float Radius;
+    float Strength;
 };
 
 

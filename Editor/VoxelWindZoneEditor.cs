@@ -100,14 +100,14 @@ namespace VoxelWindEditor
 
             autoAssignShaderButton.clicked += () =>
             {
-                voxelWindZone.packingShader = AssetDatabase.LoadAssetAtPath<ComputeShader>("Packages/com.misaki.voxel-wind/Runtime/Shader/ComputeShader/PackIntoTexture.compute");
-                voxelWindZone.updatingShader = AssetDatabase.LoadAssetAtPath<ComputeShader>("Packages/com.misaki.voxel-wind/Runtime/Shader/ComputeShader/UpdateVoxels.compute");
+                voxelWindZone.packingShader = AssetDatabase.LoadAssetAtPath<ComputeShader>("Packages/com.mattdevv.voxel-wind/Runtime/Shader/ComputeShader/PackIntoTexture.compute");
+                voxelWindZone.updatingShader = AssetDatabase.LoadAssetAtPath<ComputeShader>("Packages/com.mattdevv.voxel-wind/Runtime/Shader/ComputeShader/UpdateVoxels.compute");
             };
         }
 
         private static TemplateContainer InstantiateInspectorUI()
         {
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Packages/com.misaki.voxel-wind/Editor/View/VoxelWindZoneView.uxml");
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Packages/com.mattdevv.voxel-wind/Editor/View/VoxelWindZoneView.uxml");
             var inspector = visualTree.Instantiate();
             return inspector;
         }

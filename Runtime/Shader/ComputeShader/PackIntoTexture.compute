@@ -1,7 +1,7 @@
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel CSMain
 
-#include "Packages/com.misaki.voxel-wind/Runtime/Voxel/Voxel.cs.hlsl"
+#include "Packages/com.mattdevv.voxel-wind/Runtime/Voxel/Voxel.cs.hlsl"
 
 RWStructuredBuffer<Voxel> VoxelsIn;
 int3 VoxelDensity;

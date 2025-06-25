@@ -3,6 +3,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 
 namespace VoxelWind
@@ -162,12 +163,13 @@ namespace VoxelWind
                     _voxelTexture.Release();
                 }
 
-                _voxelTexture = new RenderTexture(voxelGrid.VoxelDensity.x, voxelGrid.VoxelDensity.y, 0, RenderTextureFormat.ARGBFloat)
+                _voxelTexture = new RenderTexture(voxelGrid.VoxelDensity.x, voxelGrid.VoxelDensity.y, 0, GraphicsFormat.R16G16B16A16_SFloat)
                 {
                     enableRandomWrite = true,
                     dimension = TextureDimension.Tex3D,
                     volumeDepth = voxelGrid.VoxelDensity.z
                 };
+                _voxelTexture.filterMode = FilterMode.Bilinear;
                 _voxelTexture.Create();
 
                 Shader.SetGlobalTexture("_VoxelWindTexture", _voxelTexture);
@@ -314,7 +316,7 @@ namespace VoxelWind
             if (_localWindBuffer == null || _localWindBuffer.count != localWinds.Count)
             {
                 _localWindBuffer?.Release();
-                _localWindBuffer = new ComputeBuffer(Mathf.Max(localWinds.Count, 1), sizeof(float) * 13);
+                _localWindBuffer = new ComputeBuffer(Mathf.Max(localWinds.Count, 1), sizeof(float) * 14);
             }
 
             if (_windColliderBuffer == null || _windColliderBuffer.count != windColliders.Count)

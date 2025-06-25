@@ -21,16 +21,18 @@ namespace VoxelWind
         public bool IsOverWrite;
         public float4 Position;
         public float4 Direction;
-        public float Speed;
+        public float Length;
         public float Radius;
+        public float Strength;
     }
 
     public class LocalWind : MonoBehaviour
     {
         public LocalWindType WindType = LocalWindType.Directional;
         public bool IsOverWrite = false;
-        public float Speed = 1.0f;
+        public float Length = 1.0f;
         public float Radius = 5.0f;
+        public float Strength = 1;
 
         private bool _isActive = true;
 
@@ -48,10 +50,11 @@ namespace VoxelWind
             _windData.IsOverWrite = IsOverWrite;
             _windData.Position.xyz = transform.position;
             _windData.Direction.xyz = transform.forward;
-            _windData.Speed = Speed;
+            _windData.Length = Length;
             _windData.Radius = Radius;
+            _windData.Strength = Strength;
 
-            if (Speed == 0)
+            if (Strength == 0)
             {
                 _isActive = false;
             }
@@ -83,7 +86,7 @@ namespace VoxelWind
                 case LocalWindType.Directional:
                     Handles.color = Color.cyan;
                     Handles.DrawWireDisc(transform.position, transform.forward, Radius);
-                    Handles.DrawWireDisc(transform.position + Speed * Radius * transform.forward, transform.forward, Radius);
+                    Handles.DrawWireDisc(transform.position + Length * Radius * transform.forward, transform.forward, Radius);
                     break;
                 case LocalWindType.Omni:
                 case LocalWindType.Vortex:

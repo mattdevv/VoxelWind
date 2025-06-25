@@ -202,24 +202,24 @@ namespace VoxelWind
                 switch (localWind.WindType)
                 {
                     case LocalWindType.Directional:
-                        isInside = Utilities.IsInsideCylinder(voxelPosition, localWind.Position.xyz, localWind.Direction.xyz, localWind.Radius, localWind.Radius, localWind.Speed, out var linear01Cylinder);
+                        isInside = Utilities.IsInsideCylinder(voxelPosition, localWind.Position.xyz, localWind.Direction.xyz, localWind.Radius, localWind.Radius, localWind.Length, out var linear01Cylinder);
                         a = 1 - linear01Cylinder;
                         direction = localWind.Direction.xyz;
-                        speed = localWind.Speed;
+                        speed = localWind.Strength;
                         break;
 
                     case LocalWindType.Omni:
                         isInside = Utilities.IsInsideSphere(voxelPosition, localWind.Position.xyz, localWind.Radius, out var linear01Sphere);
                         a = 1 - linear01Sphere;
                         direction = math.normalize(voxelPosition - localWind.Position.xyz);
-                        speed = localWind.Speed;
+                        speed = localWind.Strength;
                         break;
 
                     case LocalWindType.Vortex:
                         isInside = Utilities.IsInsideSphere(voxelPosition, localWind.Position.xyz, localWind.Radius, out var linear01Vortex);
                         a = 1 - linear01Vortex;
                         direction = math.cross(math.normalize(voxelPosition - localWind.Position.xyz), localWind.Direction.xyz);
-                        speed = localWind.Speed;
+                        speed = localWind.Strength;
                         break;
                 }
 

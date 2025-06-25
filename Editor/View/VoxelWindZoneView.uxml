@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.misaki.voxel-wind/Editor/Style/VoxelWindEditorStyle.uss?fileID=7433441132597879392&amp;guid=f67f0233603415c4ba767470374eebc3&amp;type=3#VoxelWindEditorStyle" />
+    <Style src="project://database/Packages/com.mattdevv.voxel-wind/Editor/Style/VoxelWindEditorStyle.uss?fileID=7433441132597879392&amp;guid=f67f0233603415c4ba767470374eebc3&amp;type=3#VoxelWindEditorStyle" />
     <ui:VisualElement name="SimulationGroup" style="flex-grow: 0;">
         <ui:Label text="Simulation" class="group-header" />
-        <ui:EnumField label="Compute Device" value="Center" type="VoxelWind.VoxelWindZone+ComputeDevice, VoxelWind" name="ComputeDevice" binding-path="computeDevice" tooltip="Specify the velocity computation device.Build voxel grid will always execute on cpu" />
+        <ui:EnumField label="Compute Device" value="GPU" type="VoxelWind.VoxelWindZone+ComputeDevice, VoxelWind" name="ComputeDevice" binding-path="computeDevice" tooltip="Specify the velocity computation device.Build voxel grid will always execute on cpu" />
     </ui:VisualElement>
     <ui:VisualElement name="VoxelGridGroup" style="flex-grow: 0;">
         <ui:Label text="Voxel Grid" name="Label" class="group-header" style="font-size: 12px; -unity-font-style: bold; margin-top: 15px; margin-bottom: 5px;" />
@@ -34,7 +34,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="DebugGroup" style="flex-grow: 0;">
         <ui:Label text="Debug" class="group-header" style="font-size: 12px; -unity-font-style: bold; margin-top: 15px; margin-bottom: 5px;" />
-        <ui:EnumField label="Debug Mode" value="Center" type="VoxelWind.VoxelWindZone+DebugDrawMode, VoxelWind" name="DebugMode" binding-path="debugMode" />
+        <ui:EnumField label="Debug Mode" value="None" type="VoxelWind.VoxelWindZone+DebugDrawMode, VoxelWind" name="DebugMode" binding-path="debugMode" />
         <ui:FloatField label="Debug Line Length" value="1" name="DebugLineLength" binding-path="debugLineLength" max-length="10" />
     </ui:VisualElement>
 </ui:UXML>

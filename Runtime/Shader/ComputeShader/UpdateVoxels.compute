@@ -1,12 +1,12 @@
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel CSMain
 
-#include "Packages/com.misaki.voxel-wind/Runtime/Voxel/Voxel.cs.hlsl"
-#include "Packages/com.misaki.voxel-wind/Runtime/WindMotor/GlobalWind.cs.hlsl"
-#include "Packages/com.misaki.voxel-wind/Runtime/WindMotor/LocalWind.cs.hlsl"
-#include "Packages/com.misaki.voxel-wind/Runtime/WindCollider/WindColliderData.cs.hlsl"
-#include "Packages/com.misaki.voxel-wind/Runtime/Shader/Include/Utilities.hlsl"
-#include "Packages/com.misaki.voxel-wind/Runtime/Shader/Include/Noise.hlsl"
+#include "Packages/com.mattdevv.voxel-wind/Runtime/Voxel/Voxel.cs.hlsl"
+#include "Packages/com.mattdevv.voxel-wind/Runtime/WindMotor/GlobalWind.cs.hlsl"
+#include "Packages/com.mattdevv.voxel-wind/Runtime/WindMotor/LocalWind.cs.hlsl"
+#include "Packages/com.mattdevv.voxel-wind/Runtime/WindCollider/WindColliderData.cs.hlsl"
+#include "Packages/com.mattdevv.voxel-wind/Runtime/Shader/Include/Utilities.hlsl"
+#include "Packages/com.mattdevv.voxel-wind/Runtime/Shader/Include/Noise.hlsl"
 
 RWStructuredBuffer<Voxel> voxelsIn;
 //RWStructuredBuffer<Voxel> voxelsOut;
@@ -88,7 +88,7 @@ float3 InterpolateVelocity(float3 sourcePosition)
 
 float3 ApplyCollider(Voxel voxel, float3 velocity, float3 windDirection, float windSpeed, out bool active)
 {
-    for (int i = 0; i < windColliderCount; i++)
+    for (uint i = 0; i < windColliderCount; i++)
     {
         WindColliderData collider = windColliders[i];
         float VoxelToColliderDistance = distance(voxel.Position.xyz, collider.Position.xyz);
@@ -131,7 +131,7 @@ float3 ApplyCollider(Voxel voxel, float3 velocity, float3 windDirection, float w
 float3 ApplyGlobalWind(Voxel voxel, float3 velocity, out bool needDiffusion)
 {
     bool isActive = true;
-    for (int i = 0; i < globalWindCount; i++)
+    for (uint i = 0; i < globalWindCount; i++)
     {
         GlobalWindData globalWind = globalWinds[i];
         
@@ -169,7 +169,7 @@ float3 ApplyGlobalWind(Voxel voxel, float3 velocity, out bool needDiffusion)
 
 float3 ApplyLocalWindZone(Voxel voxel, float3 velocity)
 {
-    for (int i = 0; i < localWindCount; i++)
+    for (uint i = 0; i < localWindCount; i++)
     {
         LocalWindData localWind = localWinds[i];
         
@@ -187,24 +187,24 @@ float3 ApplyLocalWindZone(Voxel voxel, float3 velocity)
         switch (localWind.WindType)
         {
             case 0:
-                isInside = IsInsideCylinder(voxelPosition, localWind.Position.xyz, localWind.Direction.xyz, localWind.Radius, localWind.Radius, localWind.Speed, linear01);
+                isInside = IsInsideCylinder(voxelPosition, localWind.Position.xyz, localWind.Direction.xyz, localWind.Radius, localWind.Radius, localWind.Length, linear01);
                 a = 1 - linear01;
                 direction = localWind.Direction.xyz;
-                speed = localWind.Speed;
+                speed = localWind.Strength;
                 break;
 
             case 1:
                 isInside = IsInsideSphere(voxelPosition, localWind.Position.xyz, localWind.Radius, linear01);
                 a = 1 - linear01;
                 direction = normalize(voxelPosition - localWind.Position.xyz);
-                speed = localWind.Speed;
+                speed = localWind.Strength;
                 break;
 
             case 2:
                 isInside = IsInsideSphere(voxelPosition, localWind.Position.xyz, localWind.Radius, linear01);
                 a = 1 - linear01;
                 direction = cross(normalize(voxelPosition - localWind.Position.xyz), localWind.Direction.xyz);
-                speed = localWind.Speed;
+                speed = localWind.Strength;
                 break;
         }
 
